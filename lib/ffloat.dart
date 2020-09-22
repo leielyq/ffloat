@@ -416,17 +416,9 @@ class _FFloatState extends State<FFloat> {
       return LayoutBuilder(
         key: key,
         builder: (context, _) {
-          return WillPopScope(
-            onWillPop: () {
-              if (_float != null) {
-                _float.dismiss();
-              }
-              return Future.value(true);
-            },
-            child: GestureDetector(
-              onLongPress: handleOnTap,
-              child: widget.anchor,
-            ),
+          return GestureDetector(
+            onLongPress: handleOnTap,
+            child: widget.anchor,
           );
         },
       );
@@ -548,6 +540,7 @@ class _FFloat {
   }
 
   void dispose() {
+    dismiss();
     controller?.dispose();
     ffloatContentController?.dispose();
     if (dismissTimer != null && dismissTimer.isActive) {
@@ -602,7 +595,7 @@ class _FFloat {
         shadowBlur: shadowBlur,
         initShow: hasShow,
       );
-      return Listener(
+      return   Listener(
         onPointerDown: (e){
           dismiss();
         },
